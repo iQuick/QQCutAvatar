@@ -3,6 +3,8 @@
 
 ## 使用
 
+![](https://github.com/iQuick/QQCutAvatar/blob/master/arc/image.jpg)
+
 xml文件布局文件
 
 	<?xml version="1.0" encoding="utf-8"?>
