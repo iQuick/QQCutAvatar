@@ -1,10 +1,10 @@
 # CutAvatarView
----
+===
 
 ## 使用
 
-xml文件
-===
+xml文件布局文件
+
 	<?xml version="1.0" encoding="utf-8"?>
 	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
@@ -25,41 +25,41 @@ xml文件
 
 	</RelativeLayout>
 	
-Activity
-===
-public class CutAvatarActivity extends Activity {
-	
-	public static Bitmap bitmap;
+Activity代码
 
-	
-	private CutAvatarView mCutAvatarView;
-	
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cut_avatar);
+	public class CutAvatarActivity extends Activity {
 		
-		mCutAvatarView = (CutAvatarView) findViewById(R.id.cut_avatar_view);
-		mCutAvatarView.setImageResource(R.drawable.avatar);
+		public static Bitmap bitmap;
+
 		
-		findViewById(R.id.btn_cut).setOnClickListener(doCut());
-	}
-	
-	
-	private View.OnClickListener doCut() {
-		return new View.OnClickListener() {
+		private CutAvatarView mCutAvatarView;
+		
+		
+		@Override
+		protected void onCreate(Bundle savedInstanceState) {
+			super.onCreate(savedInstanceState);
+			setContentView(R.layout.activity_cut_avatar);
 			
-			@Override
-			public void onClick(View v) {
-				if (bitmap != null && bitmap.isRecycled()) {
-					bitmap.recycle();
+			mCutAvatarView = (CutAvatarView) findViewById(R.id.cut_avatar_view);
+			mCutAvatarView.setImageResource(R.drawable.avatar);
+			
+			findViewById(R.id.btn_cut).setOnClickListener(doCut());
+		}
+		
+		
+		private View.OnClickListener doCut() {
+			return new View.OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					if (bitmap != null && bitmap.isRecycled()) {
+						bitmap.recycle();
+					}
+					bitmap = mCutAvatarView.clip(true);
+					setResult(RESULT_OK);
+					finish();
 				}
-				bitmap = mCutAvatarView.clip(true);
-				setResult(RESULT_OK);
-				finish();
-			}
-		};
+			};
+		}
+		
 	}
-	
-}
