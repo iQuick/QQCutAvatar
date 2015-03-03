@@ -1,10 +1,10 @@
 # CutAvatarView
 ---
 
-## 使用
+## 浣跨敤
 
-xml文件
-
+xml鏂囦欢
+===
 	<?xml version="1.0" encoding="utf-8"?>
 	<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:layout_width="match_parent"
@@ -21,45 +21,45 @@ xml文件
 			android:layout_height="wrap_content"
 			android:layout_alignParentBottom="true"
 			android:layout_alignParentRight="true"
-			android:text="截取" />
+			android:text="鎴彇" />
 
 	</RelativeLayout>
 	
 Activity
+===
+public class CutAvatarActivity extends Activity {
+	
+	public static Bitmap bitmap;
 
-	public class CutAvatarActivity extends Activity {
+	
+	private CutAvatarView mCutAvatarView;
+	
+	
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_cut_avatar);
 		
-		public static Bitmap bitmap;
-
+		mCutAvatarView = (CutAvatarView) findViewById(R.id.cut_avatar_view);
+		mCutAvatarView.setImageResource(R.drawable.avatar);
 		
-		private CutAvatarView mCutAvatarView;
-		
-		
-		@Override
-		protected void onCreate(Bundle savedInstanceState) {
-			super.onCreate(savedInstanceState);
-			setContentView(R.layout.activity_cut_avatar);
-			
-			mCutAvatarView = (CutAvatarView) findViewById(R.id.cut_avatar_view);
-			mCutAvatarView.setImageResource(R.drawable.avatar);
-			
-			findViewById(R.id.btn_cut).setOnClickListener(doCut());
-		}
-		
-		
-		private View.OnClickListener doCut() {
-			return new View.OnClickListener() {
-				
-				@Override
-				public void onClick(View v) {
-					if (bitmap != null && bitmap.isRecycled()) {
-						bitmap.recycle();
-					}
-					bitmap = mCutAvatarView.clip(true);
-					setResult(RESULT_OK);
-					finish();
-				}
-			};
-		}
-		
+		findViewById(R.id.btn_cut).setOnClickListener(doCut());
 	}
+	
+	
+	private View.OnClickListener doCut() {
+		return new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				if (bitmap != null && bitmap.isRecycled()) {
+					bitmap.recycle();
+				}
+				bitmap = mCutAvatarView.clip(true);
+				setResult(RESULT_OK);
+				finish();
+			}
+		};
+	}
+	
+}
